@@ -16,7 +16,7 @@ $hoje = date('YmdH');
 </head>
 
 <body>
-    <h1><?php echo utf8_decode('Não esqueça de pressionar CTRL'); ?></h1>
+    <h1><?php echo utf8_encode('Não esqueça de pressionar CTRL'); ?></h1>
 
     <?php
     $indiceN = "{$hoje}n-0";
