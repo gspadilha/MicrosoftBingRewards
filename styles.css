@@ -69,3 +69,11 @@ table {
 .buttonClick {
     border: 2px solid green;
 }
+
+.waitCall {
+	background-color: white !important;
+}
+
+.newCall {
+	background-color: #cfc !important;
+}

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $baseUrl = "https://www.bing.com/search?q=teste:INDICE:&aqs=edge..69i57.15241j0j1&pglt=675&FORM=ANCMS9&PC=EDGEDB";
 $hoje = date('YmdH');
 ?>
@@ -16,7 +16,7 @@ $hoje = date('YmdH');
 </head>
 
 <body>
-    <h1><?php echo utf8_encode('Não esqueça de pressionar CTRL'); ?></h1>
+    <h1><?php echo 'Não esqueça de pressionar CTRL'; ?></h1>
 
     <?php
     $indiceN = "{$hoje}n-0";

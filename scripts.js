@@ -6,9 +6,19 @@ window.addEventListener("load", () => {
   }
 });
 
+function allowClick() {
+	document.body.classList.remove("newCall");
+	document.body.classList.add("waitCall");
+	setTimeout(() => {
+		document.body.classList.remove("waitCall");
+		document.body.classList.add("newCall");
+	}, 15000)
+}
+
 function addClick(btn) {
   btn.addEventListener("click", (e) => {
-    const url = e.target.getAttribute("data-url");
+	allowClick();
+	const url = e.target.getAttribute("data-url");
     e.target.classList.add("buttonClick");
     window.open(url, "_blank");
   });
