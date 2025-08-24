@@ -24,7 +24,7 @@ $hoje = date('YmdH');
     for ($i = 1; $i <= 36; $i++) {
         $url = str_replace(':INDICE:', $indiceN, $baseUrl);
 
-        echo "<button type='button' class='buttonNormal' data-url='{$url}'>{$indiceN}</button>";
+        echo "<button type='button' class='buttonNormal' data-url='{$baseUrl}'>{$indiceN}</button>";
 
         $indiceN = "{$hoje}n-{$i}";
 
@@ -42,7 +42,7 @@ $hoje = date('YmdH');
     for ($i = 1; $i <= 21; $i++) {
         $url = str_replace(':INDICE:', $indiceP, $baseUrl);
 
-        echo "<button type='button' class='buttonMobile' data-url='{$url}'>{$indiceP}</button>";
+        echo "<button type='button' class='buttonMobile' data-url='{$baseUrl}'>{$indiceP}</button>";
 
         $indiceP = "{$hoje}p-{$i}";
 
