@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { version } from "../package.json";
+
 import ButtonGrid from "./components/ButtonGrid";
 import { useAutoCycle } from "./hooks/useAutoCycle";
 import { getToday } from "./utils/date";
@@ -21,7 +23,9 @@ export default function App() {
 
   return (
     <div>
-      <h1>Não esqueça de pressionar CTRL</h1>
+      <h1>
+        Não esqueça de pressionar CTRL<small>v{version}</small>
+      </h1>
       <ButtonGrid
         labels={labels}
         clicked={clicked}
