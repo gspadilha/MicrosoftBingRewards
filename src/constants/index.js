@@ -124,7 +124,7 @@ export const PALAVRAS = [
   "mulher",
   "navio",
   "noite",
-  "océano",
+  "oceano",
   "olho",
   "ônibus",
   "pato",
