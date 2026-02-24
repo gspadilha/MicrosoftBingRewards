@@ -13,7 +13,7 @@ const labels = Array.from({ length: 36 }, (_, i) => `${getToday()}n-${i}`);
 
 export default function App() {
   const [clicked, setClicked] = useState(new Set());
-  1;
+
   function handleClick(label) {
     setClicked((prev) => new Set([...prev, label]));
     window.open(buildSearchUrl(), "_blank");
