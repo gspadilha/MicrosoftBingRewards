@@ -21,17 +21,28 @@ export default function InAppBrowser({ url, onClose }) {
   useEffect(() => {
     if (!url) return;
 
-    // Build the URL: Android uses an intent so Edge is targeted directly.
-    const targetUrl = Platform.OS === "android" ? buildEdgeIntentUrl(url) : url;
+    let cancelled = false;
 
-    Linking.openURL(targetUrl).catch(() => {
-      // Edge not installed — fall back to default browser.
-      Linking.openURL(url);
-    });
+    async function open() {
+      let targetUrl;
+      if (Platform.OS === "android") {
+        // Android: intent URL targets Edge directly (falls back if not installed).
+        targetUrl = buildEdgeIntentUrl(url);
+        Linking.openURL(targetUrl).catch(() => Linking.openURL(url));
+      } else {
+        // iOS: try Edge's registered deep-link scheme first.
+        const edgeUrl = buildEdgeIosUrl(url);
+        const canOpen = await Linking.canOpenURL(edgeUrl).catch(() => false);
+        targetUrl = canOpen ? edgeUrl : url;
+        Linking.openURL(targetUrl).catch(() => Linking.openURL(url));
+      }
+    }
+
+    open();
 
     // AppState listener: fires when user presses Back in Edge and returns here.
     const subscription = AppState.addEventListener("change", (nextState) => {
-      if (nextState === "active") {
+      if (nextState === "active" && !cancelled) {
         cleanup();
         onCloseRef.current();
       }
@@ -39,11 +50,14 @@ export default function InAppBrowser({ url, onClose }) {
 
     // Safety fallback in case AppState doesn't fire.
     fallbackRef.current = setTimeout(() => {
-      cleanup();
-      onCloseRef.current();
+      if (!cancelled) {
+        cleanup();
+        onCloseRef.current();
+      }
     }, FALLBACK_TIMEOUT_MS);
 
     function cleanup() {
+      cancelled = true;
       subscription.remove();
       clearTimeout(fallbackRef.current);
       fallbackRef.current = null;
@@ -69,4 +83,15 @@ function buildEdgeIntentUrl(httpsUrl) {
   } catch {
     return httpsUrl;
   }
+}
+
+/**
+ * Converts a regular https URL into an iOS Edge deep-link URL.
+ * Edge for iOS registers "microsoft-edge-https" and "microsoft-edge-http" schemes.
+ * Requires LSApplicationQueriesSchemes in app.json (info.plist) to query availability.
+ */
+function buildEdgeIosUrl(httpsUrl) {
+  return httpsUrl
+    .replace(/^https:\/\//, "microsoft-edge-https://")
+    .replace(/^http:\/\//, "microsoft-edge-http://");
 }
