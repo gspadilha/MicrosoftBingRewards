@@ -24,7 +24,7 @@ export default function App() {
   return (
     <div>
       <h1>
-        Não esqueça de pressionar CTRL<small>v{version}</small>
+        Não esqueça de pressionar CTRL - <small>v{version}</small>
       </h1>
       <ButtonGrid
         labels={labels}
