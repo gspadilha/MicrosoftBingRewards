@@ -1,16 +1,52 @@
-# React + Vite
+# Microsoft Bing Rewards
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web para auxiliar na execução das pesquisas diárias do **Microsoft Bing Rewards**, abrindo automaticamente abas de busca no Bing com palavras aleatórias em português.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **36 botões de pesquisa** (pontos de PC/desktop), todos identificados com o timestamp do dia atual.
+- **Auto-ciclo**: a cada 5 minutos um botão é acionado automaticamente, abrindo uma nova aba de busca no Bing.
+- **Rastreamento visual**:
+  - Borda **verde** → pesquisa realizada manualmente.
+  - Borda **vermelha** → pesquisa disparada pelo auto-ciclo.
+- Cada pesquisa utiliza uma combinação aleatória de palavras do vocabulário em português para simular buscas orgânicas.
 
-## React Compiler
+## Tecnologias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/)
+- [Vite 7](https://vite.dev/)
+- Deploy via [gh-pages](https://github.com/tschaub/gh-pages) → GitHub Pages
 
-## Expanding the ESLint configuration
+## Como usar
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Abra a aplicação no navegador.
+2. Pressione **CTRL** (Windows) ou **CMD** (Mac) ao clicar nos botões para que cada pesquisa abra em uma nova aba sem perder a página atual.
+3. Ou aguarde o auto-ciclo disparar as pesquisas de 5 em 5 minutos.
+
+## Instalação e desenvolvimento local
+
+```bash
+# Instalar dependências
+npm install
+
+# Iniciar servidor de desenvolvimento
+npm run dev
+
+# Build de produção
+npm run build
+
+# Pré-visualizar build
+npm run preview
+```
+
+## Deploy
+
+```bash
+npm run deploy
+```
+
+O comando compila o projeto e publica a pasta `dist/` na branch `gh-pages` do repositório, tornando a aplicação acessível em:
+
+```
+https://<seu-usuario>.github.io/MicrosoftBingRewards/
+```
