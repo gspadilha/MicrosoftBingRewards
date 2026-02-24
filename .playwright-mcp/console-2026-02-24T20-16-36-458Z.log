@@ -1,0 +1,26 @@
+[   63865ms] [ERROR] React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ App 1. useState                   useState
+2. useState                   useState
+3. useRef                     useRef
+4. useEffect                  useRef
+ @ http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:5591
+[   63870ms] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:5790:19)
+    at updateEffectImpl (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:6412:20)
+    at Object.useEffect (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:18944:11)
+    at exports.useEffect (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/chunk-BSNCPAQV.js?v=3c5fad77:924:36)
+    at useAutoCycle (http://localhost:5173/MicrosoftBingRewards/src/hooks/useAutoCycle.js?t=1771964260288:20:3)
+    at App (http://localhost:5173/MicrosoftBingRewards/src/App.jsx?t=1771964260288:18:26)
+    at Object.react_stack_bottom_frame (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:18507:20)
+    at renderWithHooks (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:5652:24)
+    at updateFunctionComponent (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:7473:21)
+    at beginWork (http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:8523:20)
+[   63869ms] [WARNING] %s
+
+%s
+ An error occurred in the <App> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://localhost:5173/MicrosoftBingRewards/node_modules/.vite/deps/react-dom_client.js?v=3c5fad77:6963
