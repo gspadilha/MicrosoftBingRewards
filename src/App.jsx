@@ -50,7 +50,6 @@ function pickThreeWords() {
 export default function App() {
   const hoje = getToday();
   const normalLabels = Array.from({ length: 36 }, (_, i) => `${hoje}n-${i}`);
-  const mobileLabels = Array.from({ length: 21 }, (_, i) => `${hoje}p-${i}`);
 
   // Set of labels that have been manually or auto clicked (green border)
   const [clicked, setClicked] = useState(new Set());
@@ -67,15 +66,19 @@ export default function App() {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    function triggerNext() {
       if (autoIndexRef.current < normalLabels.length) {
         const label = normalLabels[autoIndexRef.current];
-        // Red border for auto-cycled buttons (matches original inline style behaviour)
         setAutoCycled((prev) => new Set([...prev, label]));
         doClick(label);
         autoIndexRef.current += 1;
       }
-    }, AUTO_CYCLE_TIME);
+    }
+
+    // Fire immediately on load
+    triggerNext();
+
+    const interval = setInterval(triggerNext, AUTO_CYCLE_TIME);
     return () => clearInterval(interval);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
