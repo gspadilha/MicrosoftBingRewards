@@ -10,6 +10,7 @@ import {
   MOBILE_AUTO_CYCLE_TIME,
 } from "./constants";
 import { useAutoCycle } from "./hooks/useAutoCycle";
+import { useWakeLock } from "./hooks/useWakeLock";
 import { getToday } from "./utils/date";
 import { buildSearchUrl } from "./utils/search";
 
@@ -23,6 +24,7 @@ const closeTime = isMobile ? MOBILE_AUTO_CLOSE_TIME : AUTO_CLOSE_TIME;
 const labels = Array.from({ length: 36 }, (_, i) => `${getToday()}n-${i}`);
 
 export default function App() {
+  useWakeLock();
   const [clicked, setClicked] = useState(new Set());
 
   function handleClick(label) {
