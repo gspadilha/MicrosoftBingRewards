@@ -2,7 +2,10 @@ export const BASE_URL =
   "https://www.bing.com/search?q=teste:INDICE:&aqs=edge..69i57.15241j0j1&pglt=675&FORM=ANCMS9&PC=EDGEDB";
 
 export const AUTO_CYCLE_TIME = 1000 * 60 * 5; // 5 minutes
-export const AUTO_CLOSE_TIME = 1000 * 20; // 20 seconds
+export const AUTO_CLOSE_TIME = 1000 * 25; // 25 seconds
+
+export const MOBILE_AUTO_CYCLE_TIME = 1000 * 30; // 30 seconds
+export const MOBILE_AUTO_CLOSE_TIME = 1000 * 25; // 25 seconds
 
 export const PALAVRAS = [
   "amor",
