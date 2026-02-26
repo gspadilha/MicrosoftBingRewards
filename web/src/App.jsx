@@ -3,6 +3,7 @@ import { useState } from "react";
 import { version } from "../package.json";
 
 import ButtonGrid from "./components/ButtonGrid";
+import { AUTO_CLOSE_TIME } from "./constants";
 import { useAutoCycle } from "./hooks/useAutoCycle";
 import { getToday } from "./utils/date";
 import { buildSearchUrl } from "./utils/search";
@@ -16,7 +17,10 @@ export default function App() {
 
   function handleClick(label) {
     setClicked((prev) => new Set([...prev, label]));
-    window.open(buildSearchUrl(), "_blank");
+    const tab = window.open(buildSearchUrl(), "_blank");
+    if (tab) {
+      setTimeout(() => tab.close(), AUTO_CLOSE_TIME);
+    }
   }
 
   const { autoCycled } = useAutoCycle(labels, handleClick);
