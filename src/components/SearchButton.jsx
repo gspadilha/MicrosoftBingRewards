@@ -9,7 +9,7 @@
  */
 export default function SearchButton({ label, clicked, autoCycled, onClick }) {
   const base =
-    "w-full px-4 py-3 text-sm font-mono font-medium rounded-lg border-0 transition-colors duration-150 cursor-pointer focus:outline-none select-none tracking-wide";
+    "w-full px-4 py-3 text-sm font-medium rounded-lg border-0 transition-colors duration-150 cursor-pointer focus:outline-none select-none tracking-wide";
 
   const state = autoCycled
     ? "bg-[#3d0f0f] text-[#f85149] shadow-inner"

@@ -4,7 +4,7 @@ Aplicação web para auxiliar na execução das pesquisas diárias do **Microsof
 
 ## Funcionalidades
 
-- **36 botões de pesquisa** (pontos de PC/desktop), todos identificados com o timestamp do dia atual.
+- **33 botões de pesquisa** (desktop) ou **23 botões de pesquisa** (mobile), todos identificados.
 - **Auto-ciclo**: botões são acionados automaticamente em intervalos configurados, abrindo novas abas de busca no Bing.
 - **Fechamento automático**: cada aba aberta é fechada automaticamente após 25 segundos.
 - **Rastreamento visual**:
