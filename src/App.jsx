@@ -19,7 +19,11 @@ const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const cycleTime = isMobile ? MOBILE_AUTO_CYCLE_TIME : AUTO_CYCLE_TIME;
 const closeTime = isMobile ? MOBILE_AUTO_CLOSE_TIME : AUTO_CLOSE_TIME;
 
-const labels = Array.from({ length: 36 }, (_, i) => `${getToday()}n-${i}`);
+const buttonCount = isMobile ? 23 : 33;
+const labels = Array.from(
+  { length: buttonCount },
+  (_, i) => `${getToday()}n-${i}`,
+);
 
 export default function App() {
   useWakeLock();
