@@ -1,7 +1,7 @@
 {
   "name": "@msrewards/web",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "prepare": "cd .. && git config core.hooksPath web/.husky",
+    "prepare": "husky",
     "test": "echo \"No tests defined\""
   },
   "dependencies": {
