@@ -10,6 +10,7 @@ import { AUTO_CYCLE_TIME } from "../constants";
  * @param {(label: string) => void} onTrigger - Called each time a label is auto-fired.
  * @param {number} [cycleTime] - Interval in ms between clicks. Defaults to AUTO_CYCLE_TIME.
  * @param {boolean} [paused] - When true, skips triggers without clearing the interval.
+ * @param {() => void} [onComplete] - Called once after the last label is triggered.
  * @returns {{ autoCycled: Set<string> }}
  */
 export function useAutoCycle(
@@ -17,6 +18,7 @@ export function useAutoCycle(
   onTrigger,
   cycleTime = AUTO_CYCLE_TIME,
   paused = false,
+  onComplete,
 ) {
   const [autoCycled, setAutoCycled] = useState(new Set());
   const indexRef = useRef(0);
@@ -24,21 +26,31 @@ export function useAutoCycle(
   // firing twice (local `let` variables reset on each mount, refs do not).
   const initialFiredRef = useRef(false);
   const pausedRef = useRef(paused);
+  const doneRef = useRef(false);
+  const onCompleteRef = useRef(onComplete);
 
   useEffect(() => {
     pausedRef.current = paused;
   }, [paused]);
 
   useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
     let cancelled = false;
 
     function triggerNext() {
-      if (cancelled || pausedRef.current) return;
+      if (cancelled || pausedRef.current || doneRef.current) return;
       if (indexRef.current < labels.length) {
         const label = labels[indexRef.current];
-        setAutoCycled((prev) => new Set([...prev, label]));
+        setAutoCycled((prev) => new Set(prev).add(label));
         onTrigger(label);
         indexRef.current += 1;
+        if (indexRef.current >= labels.length) {
+          doneRef.current = true;
+          onCompleteRef.current?.();
+        }
       }
     }
 

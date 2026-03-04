@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import SearchButton from "./SearchButton";
 
 /**
@@ -9,7 +11,7 @@ import SearchButton from "./SearchButton";
  *  - autoCycled {Set<string>}    Labels triggered by auto-cycle.
  *  - onClick    {(label: string) => void}
  */
-export default function ButtonGrid({ labels, clicked, autoCycled, onClick }) {
+const ButtonGrid = memo(function ButtonGrid({ labels, clicked, autoCycled, onClick }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
       {labels.map((label) => (
@@ -18,9 +20,10 @@ export default function ButtonGrid({ labels, clicked, autoCycled, onClick }) {
           label={label}
           clicked={clicked.has(label)}
           autoCycled={autoCycled.has(label)}
-          onClick={() => onClick(label)}
+          onClick={onClick}
         />
       ))}
     </div>
   );
-}
+});
+export default ButtonGrid;

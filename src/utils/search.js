@@ -1,12 +1,11 @@
 import { BASE_URL, PALAVRAS } from "../constants";
 
 export function pickThreeWords() {
-  const picked = [];
-  while (picked.length < 3) {
-    const idx = Math.floor(Math.random() * PALAVRAS.length);
-    if (!picked.includes(PALAVRAS[idx])) picked.push(PALAVRAS[idx]);
+  const picked = new Set();
+  while (picked.size < 3) {
+    picked.add(PALAVRAS[Math.floor(Math.random() * PALAVRAS.length)]);
   }
-  return picked.join(" ");
+  return Array.from(picked).join(" ");
 }
 
 export function buildSearchUrl() {

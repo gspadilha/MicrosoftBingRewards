@@ -1,5 +1,9 @@
 import { useEffect, useRef } from "react";
 
+/**
+ * Acquires a Screen Wake Lock to keep the display active.
+ * Re-acquires automatically when the page becomes visible again.
+ */
 export function useWakeLock() {
   const wakeLockRef = useRef(null);
 
