@@ -11,6 +11,7 @@ import {
   MOBILE_AUTO_CYCLE_TIME,
 } from "./constants";
 import { useAutoCycle } from "./hooks/useAutoCycle";
+import { useDayChangeDetector } from "./hooks/useDayChangeDetector";
 import { useWakeLock } from "./hooks/useWakeLock";
 import { buildSearchUrl } from "./utils/search";
 
@@ -39,6 +40,7 @@ const githubIcon = (
 
 export default function App() {
   useWakeLock();
+  useDayChangeDetector();
   const [clicked, setClicked] = useState(new Set());
   const [paused, setPaused] = useState(false);
   const [finished, setFinished] = useState(false);
