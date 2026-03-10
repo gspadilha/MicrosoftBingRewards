@@ -17,8 +17,8 @@ import { buildSearchUrl } from "./utils/search";
 
 const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-const cycleTime = isMobile ? MOBILE_AUTO_CYCLE_TIME() : AUTO_CYCLE_TIME();
-const closeTime = isMobile ? MOBILE_AUTO_CLOSE_TIME() : AUTO_CLOSE_TIME();
+const getCycleTime = isMobile ? MOBILE_AUTO_CYCLE_TIME : AUTO_CYCLE_TIME;
+const getCloseTime = isMobile ? MOBILE_AUTO_CLOSE_TIME : AUTO_CLOSE_TIME;
 
 const buttonCount = isMobile ? 23 : 33;
 const labels = Array.from(
@@ -46,10 +46,10 @@ export default function App() {
   const [finished, setFinished] = useState(false);
 
   const handleClick = useCallback((label) => {
-    setClicked((prev) => new Set(prev).add(label));
     const tab = window.open(buildSearchUrl(), "_blank");
     if (tab) {
-      setTimeout(() => tab.close(), closeTime);
+      setClicked((prev) => new Set(prev).add(label));
+      setTimeout(() => tab.close(), getCloseTime());
     }
   }, []);
 
@@ -57,7 +57,7 @@ export default function App() {
     if (!finished) setPaused((p) => !p);
   }, [finished]);
 
-  const { autoCycled } = useAutoCycle(labels, handleClick, cycleTime, paused, () => setFinished(true));
+  const { autoCycled } = useAutoCycle(labels, handleClick, getCycleTime, paused, () => setFinished(true));
 
   return (
     <div className="min-h-screen bg-[#0d1117] flex flex-col items-center px-4 py-8">
