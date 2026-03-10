@@ -16,7 +16,7 @@ import { AUTO_CYCLE_TIME } from "../constants";
 export function useAutoCycle(
   labels,
   onTrigger,
-  cycleTime = AUTO_CYCLE_TIME,
+  cycleTime = AUTO_CYCLE_TIME(),
   paused = false,
   onComplete,
 ) {
