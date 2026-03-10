@@ -10,5 +10,7 @@ export function pickThreeWords() {
 
 export function buildSearchUrl() {
   const palavras = pickThreeWords();
-  return BASE_URL.replace("teste:INDICE:", palavras);
+  const url = new URL(BASE_URL);
+  url.searchParams.set("q", palavras);
+  return url.toString();
 }

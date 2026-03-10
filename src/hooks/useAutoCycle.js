@@ -4,19 +4,20 @@ import { AUTO_CYCLE_TIME } from "../constants";
 
 /**
  * Drives the auto-cycle logic.
- * Fires the first click immediately on mount, then every cycleTime ms.
+ * Fires the first click immediately on mount, then schedules each subsequent
+ * trigger with a fresh interval computed from getCycleTime.
  *
  * @param {string[]} labels - Ordered list of button labels to cycle through.
  * @param {(label: string) => void} onTrigger - Called each time a label is auto-fired.
- * @param {number} [cycleTime] - Interval in ms between clicks. Defaults to AUTO_CYCLE_TIME.
- * @param {boolean} [paused] - When true, skips triggers without clearing the interval.
+ * @param {number | (() => number)} [getCycleTime] - Interval in ms (or factory) between clicks. Defaults to AUTO_CYCLE_TIME.
+ * @param {boolean} [paused] - When true, skips triggers without clearing the timeout.
  * @param {() => void} [onComplete] - Called once after the last label is triggered.
  * @returns {{ autoCycled: Set<string> }}
  */
 export function useAutoCycle(
   labels,
   onTrigger,
-  cycleTime = AUTO_CYCLE_TIME(),
+  getCycleTime = AUTO_CYCLE_TIME,
   paused = false,
   onComplete,
 ) {
@@ -39,6 +40,11 @@ export function useAutoCycle(
 
   useEffect(() => {
     let cancelled = false;
+    let timeoutId;
+
+    function getInterval() {
+      return typeof getCycleTime === "function" ? getCycleTime() : getCycleTime;
+    }
 
     function triggerNext() {
       if (cancelled || pausedRef.current || doneRef.current) return;
@@ -54,15 +60,24 @@ export function useAutoCycle(
       }
     }
 
+    function scheduleNext() {
+      if (cancelled || doneRef.current) return;
+      timeoutId = setTimeout(() => {
+        triggerNext();
+        scheduleNext();
+      }, getInterval());
+    }
+
     if (!initialFiredRef.current) {
       initialFiredRef.current = true;
       triggerNext(); // fire only once on first real mount
     }
 
-    const interval = setInterval(triggerNext, cycleTime);
+    scheduleNext();
+
     return () => {
       cancelled = true;
-      clearInterval(interval);
+      clearTimeout(timeoutId);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

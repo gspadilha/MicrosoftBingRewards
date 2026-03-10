@@ -8,8 +8,8 @@ Aplicação web para auxiliar na execução das pesquisas diárias do **Microsof
 - **Auto-ciclo**: botões são acionados automaticamente em intervalos configurados, abrindo novas abas de busca no Bing.
 - **Fechamento automático**: cada aba aberta é fechada automaticamente após 25 segundos.
 - **Rastreamento visual**:
-  - Borda **verde** → pesquisa realizada manualmente.
-  - Borda **vermelha** → pesquisa disparada pelo auto-ciclo.
+  - Fundo **verde escuro** → pesquisa realizada manualmente.
+  - Fundo **vermelho escuro** → pesquisa disparada pelo auto-ciclo.
 - **Wake Lock**: mantém a tela ativa enquanto o auto-ciclo está em execução.
 - Cada pesquisa utiliza uma combinação aleatória de palavras do vocabulário em português para simular buscas orgânicas.
 

@@ -7,7 +7,7 @@ import globals from "globals";
 import js from "@eslint/js";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  globalIgnores(["dist", ".agents"]),
   {
     files: ["**/*.{js,jsx}"],
     extends: [
