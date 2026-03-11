@@ -45,11 +45,12 @@ export default function App() {
   const [paused, setPaused] = useState(false);
   const [finished, setFinished] = useState(false);
 
-  const handleClick = useCallback((label) => {
+  const handleClick = useCallback((label, cycleTime) => {
     const tab = window.open(buildSearchUrl(), "_blank");
     if (tab) {
       setClicked((prev) => new Set(prev).add(label));
-      setTimeout(() => tab.close(), getCloseTime());
+      const closeTime = Math.min(getCloseTime(), cycleTime - 2000);
+      setTimeout(() => tab.close(), closeTime);
     }
   }, []);
 

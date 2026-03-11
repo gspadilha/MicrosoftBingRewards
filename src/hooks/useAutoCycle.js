@@ -46,12 +46,12 @@ export function useAutoCycle(
       return typeof getCycleTime === "function" ? getCycleTime() : getCycleTime;
     }
 
-    function triggerNext() {
+    function triggerNext(maxClose) {
       if (cancelled || pausedRef.current || doneRef.current) return;
       if (indexRef.current < labels.length) {
         const label = labels[indexRef.current];
         setAutoCycled((prev) => new Set(prev).add(label));
-        onTrigger(label);
+        onTrigger(label, maxClose);
         indexRef.current += 1;
         if (indexRef.current >= labels.length) {
           doneRef.current = true;
@@ -60,20 +60,23 @@ export function useAutoCycle(
       }
     }
 
-    function scheduleNext() {
+    function scheduleNext(delay) {
       if (cancelled || doneRef.current) return;
       timeoutId = setTimeout(() => {
-        triggerNext();
-        scheduleNext();
-      }, getInterval());
+        const nextDelay = getInterval();
+        triggerNext(nextDelay);
+        scheduleNext(nextDelay);
+      }, delay);
     }
 
     if (!initialFiredRef.current) {
       initialFiredRef.current = true;
-      triggerNext(); // fire only once on first real mount
+      const firstDelay = getInterval();
+      triggerNext(firstDelay); // fire only once on first real mount
+      scheduleNext(firstDelay);
+    } else {
+      scheduleNext(getInterval());
     }
-
-    scheduleNext();
 
     return () => {
       cancelled = true;
